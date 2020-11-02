@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="title icon" href="images/title-img.png">
+    
+    <!--  Bootstrap  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    
+    <!-- FontAwesome   -->
+    <script src="https://kit.fontawesome.com/ab4c095ae4.js" crossorigin="anonymous"></script>
+    
+    <!-- Google Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Archia" rel="stylesheet">
+    
+    <!-- Chartist CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <link rel='stylesheet' href="./bower_components/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="./bower_components/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
+
+    <!-- Main CSS Stylesheet   -->
+    <link href='src/css/style.css' rel='stylesheet'>
+    
+    <title>CovidInfo.</title>
+</head>
+<body>
+
+    <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand ml-4" href="#"><img src='src/assets/images/corona-icon.png' alt='Covid19 India Statistics'></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+
+          <div class="collapse navbar-collapse" id="navbarToggler">
+            <ul class="navbar-nav mr-auto ml-4 mt-2 mt-lg-0">
+              <li class="nav-item mr-3 active">
+                <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item mr-3">
+                <a class="nav-link" href="https://www.mohfw.gov.in/pdf/coronvavirushelplinenumber.pdf">Help</a>
+              </li>
+              
+            </ul>
+          </div>
+        </nav>
+    <!-- End of Navbar   -->
+    
+    <!-- Stay Safe Banner -->
+            <div class="banner alert alert-success" role="alert">
+                The best way we can overcome this crisis is by staying at HOME. Stay Home...Save Lives! 
+            </div>
+    <!-- End of Banner -->
+
+   
+    <!-- Main Content -->
+      <div class='container-fluid'>
+            <!-- Consolidated Stats -->
+    <div class='card-deck consolidated-stats' style="align-content:center;">
+
+    <div class="card text-white bg-danger mb-3" style="width: 100%; text-align: center;">
+      <div class="card-header">CONFIRMED</div>
+      <div class="card-body">
+        <p class="card-text" id='consolidated-stats-conf'></p>
+      </div>
+    </div>
+    <div class="card text-white bg-success mb-3" style="width:100%; text-align: center;">
+      <div class="card-header">RECOVERED</div>
+      <div class="card-body">
+        <p class="card-text" id="consolidated-stats-recov"></p>
+      </div>
+    </div>
+    <div class="card text-white bg-dark mb-3" style="width:100%; text-align: center;">
+      <div class="card-header">DECEASED</div>
+      <div class="card-body">
+        <p class="card-text" id="consolidated-stats-dead"></p>
+      </div>
+    </div>
+    <div class="card text-white bg-primary mb-3" style="width:100%; text-align: center;">
+      <div class="card-header">ACTIVE</div>
+      <div class="card-body">
+        <p class="card-text" id="consolidated-stats-active"></p>
+      </div>
+    </div>
+
+  </div>
+    <!-- End of Consolidated Stats -->
+    <!-- Table -->
+    <div class='table-responsive'>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">State</th>
+          <th scope="col" style="color: red;">Confirmed</th>
+          <th scope="col" style="color: #007bff;">Active</th>
+          <th scope="col" style="color: #28a745;">Recovered</th>
+          <th scope="col">Deceased</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    </div>
+    <!-- End of Table -->
+          <div class='trends mb-3'>
+            <h4>COVID19 TRENDS</h4>
+            <ul class="nav nav-pills mb-3 mt-3" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="pills-daily-tab" data-toggle="pill" href="#pills-daily" role="tab" aria-controls="pills-daily" aria-selected="false">Daily</a>
+              </li>
+                <li class="nav-item">
+                <a class="nav-link active" id="pills-cummulative-tab" data-toggle="pill" href="#pills-cummulative" role="tab" aria-controls="pills-cummulative" aria-selected="true">Cummulative</a>
+              </li>
+              
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade active show" id="pills-cummulative" role="tabpanel" aria-labelledby="pills-cummulative-tab">
+                <div class='row'>
+                <div class="col-sm confirmed">
+                <h6>CONFIRMED</h6>
+                <h7 id='cumm-conf-date'></h7>
+                
+                <h6 id='cumm-conf-value'></h6>
+                
+                <div class="ct-chart ct-major-tenth mt-3" id="ct-chart-conf-cumm"></div>
+                </div>
+                <div class='col-sm deceased'>
+                  <h6>DECEASED</h6>
+                  <h7 id='cumm-dead-date'></h7>
+                  <h6 id='cumm-dead-value'></h6>
+
+                  <div class="ct-chart ct-major-tenth mt-3" id='ct-chart-dead-cumm'></div>
+                </div>
+                
+               </div>
+               <div class='row show'>
+                <div class='col-sm recovered'>
+                  <h6>RECOVERED</h6>
+                  <h7 id='cumm-recov-date'></h7>
+                  <h6 id='cumm-recov-value'></h6>
+
+                  <div class='ct-chart ct-major-tenth mt-3 show active' id='ct-chart-recov-cumm'></div>
+                </div>
+                <div class='col-sm active-case'>
+                  <h6>ACTIVE</h6>
+                  <h7 id='cumm-active-date'></h7>
+                  <h6 id='cumm-active-value'></h6>
+
+                  <div class='ct-chart ct-major-tenth mt-3 show active' id='ct-chart-active-cumm'></div>
+                </div>
+               </div>
+                
+                
+              </div>
+
+              <div class="tab-pane fade active" id="pills-daily" role="tabpanel" aria-labelledby="pills-daily-tab">
+                <div class='row'>
+                <div class='col-sm confirmed'>
+                <h6>CONFIRMED</h6>
+                <h7 id='daily-conf-date'></h7>
+                <h6 id='daily-conf-value'></h6>
+                
+                <div class="ct-chart ct-major-tenth mt-3" id="ct-chart-conf-daily"></div>
+              </div>
+              <div class='col-sm deceased'>
+
+                <h6>DECEASED</h6>
+                <h7 id='daily-dead-date'></h7>
+                <h6 id='daily-dead-value'></h6>
+                <div class="ct-chart ct-major-tenth mt-3" id='ct-chart-dead-daily'></div>
+              </div>
+              </div>
+              <div class='row'>
+                <div class='col-sm recovered'>
+                  <h6>RECOVERED</h6>
+                  <h7 id='daily-recov-date'></h7>
+                  <h6 id='daily-recov-value'></h6>
+                  <div class='ct-chart ct-major-tenth mt-3' id='ct-chart-recov-daily'>
+                </div>
+              </div>
+              <div class='col-sm active-case'>
+                
+                  <h6>ACTIVE</h6>
+                  <h7 id='daily-active-date'></h7>
+                  <h6 id='daily-active-value'></h6>
+
+                <div class='ct-chart ct-major-tenth mt-3 show active' id='ct-chart-active-daily'></div>
+              
+            </div>
+            </div>
+          </div>
+          </div>
+          </div>
+          <div class='card-deck pl-5 pr-5'>
+            
+          <div class="card text-white mb-3" style="width:100%; text-align: center;display: flex;background: black;">
+            <a href="https://rupeshinventor.github.io/rupesh-mishra/#" style="text-decoration: none; color: white;">
+            <div class="card-body p-0 pb-2 pt-2">
+              <i class="fab fa-github mb-0" style="font-size: 30px;"></i><a href="https://rupeshinventor.github.io/rupesh-mishra/#"></a><p class="card-text" style="font-size:small;">Develop By Rupesh Mishra || Mind Install</p></a>            </div>
+          </a>
+          </div>
+
+        </div>
+          </div>
+          
+    <!-- End of Main Content -->
+    
+    
+    
+    
+    <!-- Jquery   -->
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    <!-- Ajax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap Script -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    
+    <!-- Main JS Script -->
+    <script src='./src/js//script.js'></script>
+    <script src="./src/scripts/data.js"></script>
+    
+</body>
+</html>
